@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صدى الطفولة | مغامرات ساسوكي HD</title>
+    <title>صدى الطفولة | ساسوكي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
+            /* العودة للألوان الزرقاء */
+            --primary: #00d2ff; 
+            --secondary: #3a7bd5; 
             --bg: #0b0f19;
-            --card: #161e2e;
-            --text: #ffffff;
+            --card: #161e2e; 
+            --text: #ffffff; 
             --accent: #ff9800;
         }
 
@@ -19,47 +20,57 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         header {
             width: 100%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 40px 0;
-            text-align: center;
+            padding: 40px 0; text-align: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
         header h1 { margin: 0; font-size: 2.2rem; font-weight: 900; }
-        header p { margin: 10px 0 0; opacity: 0.9; }
 
         .main-container {
-            max-width: 900px;
-            width: 95%;
-            margin: 30px auto;
+            max-width: 900px; width: 95%; margin: 30px auto;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--text);
-            background: rgba(255,255,255,0.05);
-            padding: 15px;
-            border-radius: 15px;
-        }
-
-        .episodes-container {
-            background: var(--card);
-            padding: 25px;
+        .video-wrapper {
+            background: #000;
             border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden; 
+            border: 3px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
+            margin-bottom: 30px;
+            display: none;
+            position: relative;
+        }
+
+        .responsive-iframe {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .responsive-iframe iframe {
+            position: absolute;
+            top: -155px; 
+            left: 0;
+            width: 100%;
+            height: calc(100% + 155px); 
+            border: 0;
+        }
+
+        .video-footer {
+            padding: 15px;
+            background: var(--card);
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .episodes-grid {
@@ -71,82 +82,78 @@
         .ep-btn {
             background: #252f44;
             color: white;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 20px 0;
+            padding: 15px 0;
             border-radius: 12px;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            text-decoration: none;
-            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
             cursor: pointer;
             transition: 0.3s ease;
-            display: block;
         }
 
-        .ep-btn:hover {
-            background: var(--primary);
-            color: #000;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
-        }
+        .ep-btn:hover { background: var(--primary); color: #000; }
+        .ep-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
 
-        footer {
-            margin: 40px 0;
-            opacity: 0.5;
-            font-size: 0.8rem;
-        }
+        footer { margin: 40px 0; opacity: 0.5; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>🥷 صدى الطفولة</h1>
-    <p>مغامرات ساسوكي بجودة HD</p>
+    <h1>🎬 صدى الطفولة</h1>
+    <p>مغامرات ساسوكي - كامل 24 حلقة</p>
 </header>
 
 <div class="main-container">
-    <div class="section-header">قائمة الحلقات كاملة</div>
-    <div class="episodes-container">
+    <div id="videoContainer" class="video-wrapper">
+        <div class="responsive-iframe">
+            <iframe id="mainIframe" src="" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
+        </div>
+        <div id="epTitle" class="video-footer">أنت تشاهد الآن: ساسوكي - حلقة <span id="epNumText"></span></div>
+    </div>
+
+    <div class="episodes-container" style="background: var(--card); padding: 25px; border-radius: 20px;">
         <div class="episodes-grid" id="buttonsGrid"></div>
     </div>
 </div>
 
 <footer>
-    <p>جميع الحقوق محفوظة - صدى الطفولة &copy; 2026</p>
+    <p>جميع الحقوق محفوظة لـ صدى الطفولة &copy; 2026</p>
 </footer>
 
 <script>
-    const episodeLinks = [
-        "https://cartoony.net/watch/31/272", 
-        "https://cartoony.net/watch/31/273", // الحلقة المكتشفة حديثاً
-        "https://cartoony.net/watch/31/274", "https://cartoony.net/watch/31/275",
-        "https://cartoony.net/watch/31/276", "https://cartoony.net/watch/31/277", "https://cartoony.net/watch/31/278",
-        "https://cartoony.net/watch/31/279", "https://cartoony.net/watch/31/280", "https://cartoony.net/watch/31/281",
-        "https://cartoony.net/watch/31/282", "https://cartoony.net/watch/31/283", "https://cartoony.net/watch/31/284",
-        "https://cartoony.net/watch/31/285", "https://cartoony.net/watch/31/286", "https://cartoony.net/watch/31/287",
-        "https://cartoony.net/watch/31/288", "https://cartoony.net/watch/31/289", "https://cartoony.net/watch/31/290",
-        "https://cartoony.net/watch/31/291", "https://cartoony.net/watch/31/292", "https://cartoony.net/watch/31/293",
-        "https://cartoony.net/watch/31/294", "https://cartoony.net/watch/31/295"
-    ];
-
     const grid = document.getElementById('buttonsGrid');
-    const adLink = 'https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a';
+    const container = document.getElementById('videoContainer');
+    const iframe = document.getElementById('mainIframe');
+    const epNumDisplay = document.getElementById('epNumText');
+    const totalEpisodes = 24; 
 
-    episodeLinks.forEach((link, index) => {
-        const btn = document.createElement('a');
+    for (let i = 1; i <= totalEpisodes; i++) {
+        const btn = document.createElement('button');
         btn.className = 'ep-btn';
-        btn.innerText = index + 1;
-        btn.href = "#";
+        btn.innerText = i;
+        
+        // الحساب لساسوكي: حلقة 1 = 272
+        let episodeId = 271 + i;
 
-        btn.onclick = function(e) {
-            e.preventDefault();
-            window.open(link, '_blank');
-            window.location.href = adLink;
+        const link = `https://cartoony.net/watch/31/${episodeId}`;
+
+        btn.onclick = function() {
+            // الوحدة الإعلانية
+            window.open('https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a', '_blank');
+            
+            container.style.display = 'block';
+            iframe.src = link;
+            epNumDisplay.innerText = i;
+            
+            document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            container.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
         grid.appendChild(btn);
-    });
+    }
 </script>
 
 </body>
 </html>
-
