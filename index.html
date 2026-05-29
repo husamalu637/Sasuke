@@ -1,3 +1,4 @@
+```html id="sasoki1"
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -7,12 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* العودة للألوان الزرقاء */
-            --primary: #00d2ff; 
-            --secondary: #3a7bd5; 
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
             --bg: #0b0f19;
-            --card: #161e2e; 
-            --text: #ffffff; 
+            --card: #161e2e;
+            --text: #ffffff;
             --accent: #ff9800;
         }
 
@@ -20,27 +20,37 @@
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Cairo', sans-serif;
-            margin: 0; padding: 0;
-            display: flex; flex-direction: column; align-items: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
             width: 100%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 40px 0; text-align: center;
+            padding: 40px 0;
+            text-align: center;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
 
-        header h1 { margin: 0; font-size: 2.2rem; font-weight: 900; }
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            font-weight: 900;
+        }
 
         .main-container {
-            max-width: 900px; width: 95%; margin: 30px auto;
+            max-width: 900px;
+            width: 95%;
+            margin: 30px auto;
         }
 
         .video-wrapper {
             background: #000;
             border-radius: 20px;
-            overflow: hidden; 
+            overflow: hidden;
             border: 3px solid var(--primary);
             box-shadow: 0 10px 30px rgba(0, 210, 255, 0.2);
             margin-bottom: 30px;
@@ -57,10 +67,10 @@
 
         .responsive-iframe iframe {
             position: absolute;
-            top: -155px; 
+            top: -155px;
             left: 0;
             width: 100%;
-            height: calc(100% + 155px); 
+            height: calc(100% + 155px);
             border: 0;
         }
 
@@ -91,13 +101,39 @@
             transition: 0.3s ease;
         }
 
-        .ep-btn:hover { background: var(--primary); color: #000; }
-        .ep-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+        .ep-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
 
-        footer { margin: 40px 0; opacity: 0.5; font-size: 0.8rem; }
+        .ep-btn.active {
+            background: var(--accent);
+            color: #000;
+            border-color: var(--accent);
+        }
+
+        footer {
+            margin: 40px 0;
+            opacity: 0.5;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
+
+<!-- البنر العلوي -->
+<div style="width:100%; text-align:center; margin:15px 0;">
+<script>
+  atOptions = {
+    'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
 
 <header>
     <h1>🎬 صدى الطفولة</h1>
@@ -109,7 +145,9 @@
         <div class="responsive-iframe">
             <iframe id="mainIframe" src="" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
         </div>
-        <div id="epTitle" class="video-footer">أنت تشاهد الآن: ساسوكي - حلقة <span id="epNumText"></span></div>
+        <div id="epTitle" class="video-footer">
+            أنت تشاهد الآن: ساسوكي - حلقة <span id="epNumText"></span>
+        </div>
     </div>
 
     <div class="episodes-container" style="background: var(--card); padding: 25px; border-radius: 20px;">
@@ -121,39 +159,52 @@
     <p>جميع الحقوق محفوظة لـ صدى الطفولة &copy; 2026</p>
 </footer>
 
+<!-- البنر السفلي -->
+<div style="width:100%; text-align:center; margin:15px 0;">
+<script>
+  atOptions = {
+    'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
+
 <script>
     const grid = document.getElementById('buttonsGrid');
     const container = document.getElementById('videoContainer');
     const iframe = document.getElementById('mainIframe');
     const epNumDisplay = document.getElementById('epNumText');
-    const totalEpisodes = 24; 
+    const totalEpisodes = 24;
 
     for (let i = 1; i <= totalEpisodes; i++) {
         const btn = document.createElement('button');
         btn.className = 'ep-btn';
         btn.innerText = i;
-        
-        // الحساب لساسوكي: حلقة 1 = 272
+
         let episodeId = 271 + i;
 
         const link = `https://cartoony.net/watch/31/${episodeId}`;
 
         btn.onclick = function() {
-            // الوحدة الإعلانية
-            window.open('https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a', '_blank');
-            
+
             container.style.display = 'block';
             iframe.src = link;
             epNumDisplay.innerText = i;
-            
+
             document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             container.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
+
         grid.appendChild(btn);
     }
 </script>
 
 </body>
 </html>
+```
